@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DISFOCUS</title>
+  <meta name="description" content="DISFOCUS — 3D Experience" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/src/styles/main.css" />
+  <link rel="stylesheet" href="/src/styles/components.css" />
+</head>
+<body class="bg-black text-white selection:bg-pink-500 selection:text-black overflow-x-hidden">
+
+  <!-- WebGL Background Canvas -->
+  <div id="webgl-container" class="webgl-canvas-container" aria-hidden="true"></div>
+
+  <!-- Noise & Scanlines -->
+  <div class="cyber-noise-overlay" aria-hidden="true"></div>
+  <div class="cyber-scanlines" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" class="custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- Minimal Header -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="#hero" class="brand-logo" data-magnetic>
+        <img src="/assets/logos/disfocus-d-emblem.png" alt="Disfocus Logo" class="brand-emblem-img" />
+        <img src="/assets/logos/disfocus-logo-full.png" alt="DISFOCUS" class="brand-contour-img" />
+      </a>
+    </div>
+
+    <div class="header-center hidden-mobile">
+      <span class="header-mono-tag">39.5696° N, 2.6502° E // 115—200 BPM</span>
+    </div>
+
+    <div class="header-right">
+      <button id="audio-toggle-btn" class="audio-btn" aria-label="Audio" data-magnetic>
+        <canvas id="audio-mini-visualizer" width="40" height="14" class="audio-vis-canvas"></canvas>
+        <span id="audio-btn-label" class="audio-label">SOUND</span>
+      </button>
+
+      <nav class="nav-links">
+        <a href="#spotlight" class="nav-link" data-magnetic>STUDIO</a>
+        <a href="#music" class="nav-link" data-magnetic>SOUNDCLOUD</a>
+        <a href="#videos" class="nav-link" data-magnetic>VIDEOS</a>
+        <a href="#about" class="nav-link" data-magnetic>ORIGIN</a>
+        <a href="#booking" class="nav-link nav-cta" data-magnetic>BOOKING</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <!-- ================= HERO SECTION (PHOTO + OFFICIAL GLITCH LOGO) ================= -->
+      <section id="hero" class="hero-section">
+        <div class="hero-bg-glow glow-mauve"></div>
+        <div class="hero-bg-glow glow-pink"></div>
+
+        <!-- 3D Hero Interactive Mesh Photo -->
+        <div class="hero-3d-wrapper">
+          <div id="hero-webgl-plane" class="hero-webgl-plane"></div>
+        </div>
+
+        <!-- Hero Content Overlay : OFFICIAL DISFOCUS LOGO WITH GLITCH SHIFT -->
+        <div class="hero-content-minimal">
+          <div class="hero-logo-glitch-container" id="hero-glitch-logo">
+            <img src="/assets/logos/disfocus-logo-full.png" alt="DISFOCUS Logo" class="glitch-img base" />
+            <img src="/assets/logos/disfocus-logo-full.png" alt="" class="glitch-img pink-layer" aria-hidden="true" />
+            <img src="/assets/logos/disfocus-logo-full.png" alt="" class="glitch-img mauve-layer" aria-hidden="true" />
+          </div>
+
+          <div class="hero-scroll-cue">
+            <div class="cue-line"></div>
+            <span class="cue-text">EXPLORE</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MINIMAL MARQUEE STRIP ================= -->
+      <div class="stats-marquee-container">
+        <div class="stats-marquee-track">
+          <div class="marquee-item"><span class="highlight-pink">●</span> SOUNDCLOUD // @DISFOCUSOFFICIEL</div>
+          <div class="marquee-item"><span class="highlight-mauve">●</span> 115 — 200 BPM</div>
+          <div class="marquee-item"><span class="highlight-pink">●</span> ORCHESTRAL HYBRID</div>
+          <div class="marquee-item"><span class="highlight-mauve">●</span> PARIS ➔ MTL ➔ PALMA</div>
+          <div class="marquee-item"><span class="highlight-pink">●</span> SOUNDCLOUD // @DISFOCUSOFFICIEL</div>
+          <div class="marquee-item"><span class="highlight-mauve">●</span> 115 — 200 BPM</div>
+          <div class="marquee-item"><span class="highlight-pink">●</span> ORCHESTRAL HYBRID</div>
+          <div class="marquee-item"><span class="highlight-mauve">●</span> PARIS ➔ MTL ➔ PALMA</div>
+        </div>
+      </div>
+
+      <!-- ================= SPOTLIGHT UNRELEASED VIDEO SECTION (BEFORE SOUNDCLOUD) ================= -->
+      <section id="spotlight" class="section-container spotlight-section">
+        <div class="section-header-minimal">
+          <span class="minimal-tag"><span class="pulse-dot"></span> EXCLUSIVE STUDIO DROP</span>
+          <h2 class="minimal-title">STUDIO <span class="gradient-text-pink">SESSION</span> // UNRELEASED</h2>
+        </div>
+
+        <div class="spotlight-showcase-wrapper" data-tilt>
+          <!-- Left: Vertical Video Player Card -->
+          <div class="spotlight-media-card" id="spotlight-player-card">
+            <div class="spotlight-video-wrapper">
+              <video 
+                id="spotlight-video-element" 
+                class="spotlight-video" 
+                poster="/assets/images/disfocus-tiktok-cover.jpg"
+                playsinline 
+                loop 
+                preload="metadata"
+              >
+                <source src="/assets/videos/disfocus-tiktok-session.mp4" type="video/mp4" />
+              </video>
+              
+              <!-- CRT Scanline layer -->
+              <div class="spotlight-crt-layer" aria-hidden="true"></div>
+
+              <!-- Top badges on video -->
+              <div class="spotlight-badges-top">
+                <span class="badge-live-neon">● 160 BPM</span>
+                <span class="badge-format-tag">TIKTOK EXCLUSIVE</span>
+              </div>
+
+              <!-- Big Play/Pause overlay button -->
+              <button id="spotlight-center-play-btn" class="spotlight-big-play" aria-label="Lancer la vidéo avec son">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="play-svg"><path d="M8 5v14l11-7z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="pause-svg hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+
+              <!-- Bottom controls bar on video -->
+              <div class="spotlight-video-controls">
+                <button id="spotlight-sound-toggle" class="spotlight-ctrl-btn" title="Activer / Couper le son">
+                  <!-- Muted icon -->
+                  <svg id="spotlight-icon-muted" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                  <!-- Sound on icon -->
+                  <svg id="spotlight-icon-sound" class="hidden" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                  <span id="spotlight-sound-text">SON COUPE</span>
+                </button>
+
+                <button id="spotlight-expand-btn" class="spotlight-ctrl-btn" title="Ouvrir dans le lecteur CRT">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                  </svg>
+                  <span>MODAL CRT</span>
+                </button>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="spotlight-progress-track">
+                <div id="spotlight-progress-bar" class="spotlight-progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Track Info & Direct Links -->
+          <div class="spotlight-content-card">
+            <div class="spotlight-tag-row">
+              <span class="spotlight-source-pill">TIKTOK VIRAL SESSION</span>
+              <span class="spotlight-bpm-tag">160 BPM // HARD ACID</span>
+            </div>
+
+            <h3 class="spotlight-track-title">DISFOCUS — ID</h3>
+            <span class="spotlight-track-sub">[UNRELEASED LIVE STUDIO SESSION]</span>
+
+            <p class="spotlight-desc">
+              Extrait brut enregistré en direct au studio : montée d'acid techno surpuissante, modulation de filtres analogiques en direct et textures sonores hybrides.
+            </p>
+
+            <div class="spotlight-keywords">
+              <span class="keyword-chip">#ACIDTECHNO</span>
+              <span class="keyword-chip">#UNRELEASED</span>
+              <span class="keyword-chip">#STUDIOLIVE</span>
+              <span class="keyword-chip">#HARDTECHNO</span>
+            </div>
+
+            <div class="spotlight-actions">
+              <a href="https://vm.tiktok.com/ZN8jaD7Km/" target="_blank" rel="noopener noreferrer" class="spotlight-tiktok-cta" data-magnetic>
+                <div class="tiktok-icon-badge">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.91-4.47V8.71a8.27 8.27 0 0 0 4.86 1.57v-3.59h-1z"/>
+                  </svg>
+                </div>
+                <span>VOIR SUR TIKTOK ➔</span>
+              </a>
+
+              <button id="spotlight-listen-btn" class="spotlight-listen-btn" data-magnetic>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>ÉCOUTER AVEC SON</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SOUNDCLOUD MUSIC SECTION ================= -->
+      <section id="music" class="section-container music-section">
+        <div class="section-header-minimal">
+          <span class="minimal-tag">OFFICIAL RELEASES</span>
+          <h2 class="minimal-title">STREAM ON <span class="gradient-text-pink">SOUNDCLOUD</span></h2>
+        </div>
+
+        <div class="soundcloud-card-wrapper" data-tilt>
+          <div class="sc-card-header">
+            <div class="sc-user-info">
+              <div class="sc-avatar-glow">
+                <img src="/assets/logos/disfocus-d-emblem.png" alt="Disfocus Avatar" class="sc-avatar-img" />
+              </div>
+              <div>
+                <h3 class="sc-artist-name">DISFOCUS</h3>
+                <span class="sc-handle">@disfocusofficiel</span>
+              </div>
+            </div>
+
+            <a href="https://soundcloud.com/disfocusofficiel" target="_blank" rel="noopener noreferrer" class="sc-stream-btn" data-magnetic>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+              <span>OPEN SOUNDCLOUD ➔</span>
+            </a>
+          </div>
+
+          <!-- Embedded SoundCloud Player for disfocusofficiel -->
+          <div class="sc-embed-container">
+            <iframe 
+              width="100%" 
+              height="380" 
+              scrolling="no" 
+              frameborder="no" 
+              allow="autoplay" 
+              src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/disfocusofficiel&color=%23ff2a85&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false">
+            </iframe>
+          </div>
+
+          <div class="sc-card-footer">
+            <div class="sc-pulse-live">
+              <span class="pulse-dot"></span>
+              <span class="pulse-text">STREAMING ARCHIVE ACTIVE</span>
+            </div>
+            <span class="sc-bpm-tag">115 — 200 BPM</span>
+          </div>
+
+          <div class="sc-neon-border"></div>
+        </div>
+
+        <!-- ================= INSTAGRAM CTA (ULTRA VOYANT & IMPACTANT) ================= -->
+        <div class="sc-instagram-cta-container">
+          <div class="sc-instagram-banner-glow" aria-hidden="true"></div>
+          
+          <a href="https://www.instagram.com/disfocusofficial/" target="_blank" rel="noopener noreferrer" class="sc-instagram-cta-card" data-magnetic>
+            <div class="sc-instagram-animated-border" aria-hidden="true"></div>
+            
+            <div class="sc-instagram-content-grid">
+              
+              <!-- Left: Brand Icon with Glowing Ring -->
+              <div class="sc-instagram-brand-col">
+                <div class="sc-instagram-icon-badge-xl">
+                  <div class="sc-instagram-icon-glow"></div>
+                  <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div class="sc-instagram-text-col">
+                  <div class="sc-insta-top-row">
+                    <span class="sc-insta-live-pill">
+                      <span class="insta-live-pulse-dot"></span>
+                      COMMUNAUTÉ ACTIVE
+                    </span>
+                    <span class="sc-insta-sub-pill">STORIES • REELS • BACKSTAGE</span>
+                  </div>
+                  <h3 class="sc-instagram-cta-title">
+                    SUIVRE <span class="gradient-text-insta">@DISFOCUSOFFICIAL</span> SUR INSTAGRAM
+                  </h3>
+                  <p class="sc-instagram-cta-desc">
+                    Sessions studio exclusives, extraits vidéos en direct, annonces de tournées et actualités en temps réel.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right: Massive Button -->
+              <div class="sc-instagram-action-col">
+                <div class="sc-instagram-btn-massive">
+                  <span class="btn-text">REJOINDRE LE COMPTE</span>
+                  <span class="btn-arrow">➔</span>
+                </div>
+              </div>
+
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ================= VIDEOS SECTION (MINIMAL CARDS WITH 3D ANIMATIONS) ================= -->
+      <section id="videos" class="section-container videos-section">
+        <div class="section-header-minimal">
+          <span class="minimal-tag">ARCHIVES</span>
+          <h2 class="minimal-title">LIVE <span class="gradient-text-pink">SETS</span></h2>
+        </div>
+
+        <div class="video-grid" id="video-cards-grid">
+          
+          <!-- Card 1 -->
+          <article class="video-card" data-video-src="/assets/videos/noisecore.mp4" data-video-title="NOISECORE // I" data-video-bpm="175 BPM">
+            <div class="card-media-wrapper">
+              <video class="card-video-preview" muted loop playsinline preload="metadata">
+                <source src="/assets/videos/noisecore.mp4" type="video/mp4" />
+              </video>
+              <div class="card-overlay">
+                <div class="play-btn-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="card-badge-top">
+                <span class="badge-bpm">175 BPM</span>
+              </div>
+            </div>
+            <div class="card-meta-minimal">
+              <span class="card-index">01</span>
+              <h3 class="card-title-glitch" data-text="NOISECORE // I">NOISECORE // I</h3>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="video-card featured" data-video-src="/assets/videos/la-freidora-1.mov" data-video-title="LA FREIDORA // 01" data-video-bpm="140 BPM">
+            <div class="card-media-wrapper">
+              <video class="card-video-preview" muted loop playsinline preload="metadata">
+                <source src="/assets/videos/la-freidora-1.mov" type="video/quicktime" />
+                <source src="/assets/videos/la-freidora-1.mov" type="video/mp4" />
+              </video>
+              <div class="card-overlay">
+                <div class="play-btn-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="card-badge-top">
+                <span class="badge-bpm">140 BPM</span>
+              </div>
+            </div>
+            <div class="card-meta-minimal">
+              <span class="card-index">02</span>
+              <h3 class="card-title-glitch" data-text="LA FREIDORA // TRINCHERA 01">LA FREIDORA // TRINCHERA 01</h3>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="video-card" data-video-src="/assets/videos/la-roca.mp4" data-video-title="LA ROCA (1ST ANNIVERSARY)" data-video-bpm="135 BPM">
+            <div class="card-media-wrapper">
+              <video class="card-video-preview" muted loop playsinline preload="metadata">
+                <source src="/assets/videos/la-roca.mp4" type="video/mp4" />
+              </video>
+              <div class="card-overlay">
+                <div class="play-btn-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="card-badge-top">
+                <span class="badge-bpm">135 BPM</span>
+              </div>
+            </div>
+            <div class="card-meta-minimal">
+              <span class="card-index">03</span>
+              <h3 class="card-title-glitch" data-text="LA ROCA // ANNIVERSARY">LA ROCA // ANNIVERSARY</h3>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="video-card" data-video-src="/assets/videos/la-freidora-2.mov" data-video-title="LA FREIDORA // 02" data-video-bpm="150 BPM">
+            <div class="card-media-wrapper">
+              <video class="card-video-preview" muted loop playsinline preload="metadata">
+                <source src="/assets/videos/la-freidora-2.mov" type="video/quicktime" />
+                <source src="/assets/videos/la-freidora-2.mov" type="video/mp4" />
+              </video>
+              <div class="card-overlay">
+                <div class="play-btn-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="card-badge-top">
+                <span class="badge-bpm">150 BPM</span>
+              </div>
+            </div>
+            <div class="card-meta-minimal">
+              <span class="card-index">04</span>
+              <h3 class="card-title-glitch" data-text="LA FREIDORA // TRINCHERA 02">LA FREIDORA // TRINCHERA 02</h3>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="video-card" data-video-src="/assets/videos/noisecore-2.mov" data-video-title="NOISECORE // II" data-video-bpm="165 BPM">
+            <div class="card-media-wrapper">
+              <video class="card-video-preview" muted loop playsinline preload="metadata">
+                <source src="/assets/videos/noisecore-2.mov" type="video/quicktime" />
+                <source src="/assets/videos/noisecore-2.mov" type="video/mp4" />
+              </video>
+              <div class="card-overlay">
+                <div class="play-btn-circle">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="card-badge-top">
+                <span class="badge-bpm">165 BPM</span>
+              </div>
+            </div>
+            <div class="card-meta-minimal">
+              <span class="card-index">05</span>
+              <h3 class="card-title-glitch" data-text="NOISECORE // II">NOISECORE // II</h3>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ================= ABOUT & ORIGIN (MINIMAL ESSENTIALS) ================= -->
+      <section id="about" class="section-container about-section">
+        <div class="about-grid-minimal">
+          
+          <div class="about-portrait-wrapper" data-tilt>
+            <img src="/assets/images/disfocus-portrait-2.jpg" alt="Disfocus" class="portrait-img" />
+            <div class="portrait-tag-badge">VALENTIN D'AMICO</div>
+          </div>
+
+          <div class="about-content-minimal">
+            <span class="minimal-tag">ORIGIN</span>
+            <h2 class="minimal-title">SONIC <span class="gradient-text-mauve">MATRIX</span></h2>
+
+            <div class="key-facts-grid">
+              <div class="fact-card">
+                <span class="fact-no">01</span>
+                <span class="fact-label">PARIS</span>
+                <span class="fact-val">Piano classique dès 7 ans & MAO</span>
+              </div>
+
+              <div class="fact-card">
+                <span class="fact-no">02</span>
+                <span class="fact-label">MONTREAL</span>
+                <span class="fact-val">7 ans Musitechnic (Étudiant & Enseignant)</span>
+              </div>
+
+              <div class="fact-card">
+                <span class="fact-no">03</span>
+                <span class="fact-label">PALMA DE MALLORCA</span>
+                <span class="fact-val">R&D Studio — Hybride Orchestral & Techno</span>
+              </div>
+
+              <div class="fact-card highlight-card">
+                <span class="fact-no">BPM</span>
+                <span class="fact-label">TEMPO RANGE</span>
+                <span class="fact-val font-bold text-pink-500">115 ➔ 200 BPM</span>
+              </div>
+            </div>
+
+            <!-- Sleek Sound Trigger Pads -->
+            <div class="minimal-synth-strip">
+              <span class="synth-strip-title">FREQUENCIES:</span>
+              <button id="synth-trigger-bass" class="mini-pad-btn" data-magnetic>SUB 40Hz</button>
+              <button id="synth-trigger-arp" class="mini-pad-btn" data-magnetic>ARP 140BPM</button>
+              <button id="synth-trigger-impact" class="mini-pad-btn" data-magnetic>DROP</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= BOOKING (ESSENTIAL DIRECT CONTACT) ================= -->
+      <section id="booking" class="section-container booking-section">
+        <div class="section-header-minimal">
+          <span class="minimal-tag">CONTACT</span>
+          <h2 class="minimal-title">DIRECT <span class="gradient-text-pink">BOOKING</span></h2>
+        </div>
+
+        <div class="booking-minimal-grid">
+          
+          <div class="booking-pill-card">
+            <span class="pill-region">DIRECT BOOKING</span>
+            <span class="pill-email" id="email-direct">Disfocusofficiel@gmail.com</span>
+            <div class="pill-actions">
+              <button class="copy-btn" data-copy-target="email-direct" data-magnetic>COPIER</button>
+              <a href="mailto:Disfocusofficiel@gmail.com" class="direct-mail-btn" data-magnetic>MAIL ➔</a>
+            </div>
+          </div>
+
+          <div class="booking-pill-card">
+            <span class="pill-region">CANADA / US</span>
+            <span class="pill-email" id="email-americas">obsessianbookingagency@gmail.com</span>
+            <div class="pill-actions">
+              <button class="copy-btn" data-copy-target="email-americas" data-magnetic>COPIER</button>
+              <a href="mailto:obsessianbookingagency@gmail.com" class="direct-mail-btn" data-magnetic>MAIL ➔</a>
+            </div>
+          </div>
+
+          <div class="booking-pill-card">
+            <span class="pill-region">COLLAB / GHOST</span>
+            <span class="pill-email" id="email-collab">Disfocusofficiel@gmail.com</span>
+            <div class="pill-actions">
+              <button class="copy-btn" data-copy-target="email-collab" data-magnetic>COPIER</button>
+              <a href="mailto:Disfocusofficiel@gmail.com" class="direct-mail-btn" data-magnetic>MAIL ➔</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= FOOTER ================= -->
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <img src="/assets/logos/disfocus-logo-full.png" alt="DISFOCUS" class="footer-logo-img" />
+          <span class="footer-mono">115—200 BPM</span>
+          <a href="#hero" class="back-to-top-btn" data-magnetic>↑</a>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ================= FULLSCREEN VIDEO MODAL ================= -->
+  <div id="video-modal" class="video-modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop"></div>
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-info">
+          <h3 id="modal-video-title" class="modal-title">DISFOCUS LIVE</h3>
+          <span id="modal-video-bpm" class="modal-bpm">175 BPM</span>
+        </div>
+        <div class="modal-controls">
+          <button id="modal-fx-toggle" class="modal-btn-fx" title="CRT FX" data-magnetic>CRT</button>
+          <button id="modal-close-btn" class="modal-btn-close" aria-label="Close" data-magnetic>✕</button>
+        </div>
+      </div>
+      <div class="modal-player-container">
+        <video id="modal-video-element" class="modal-video" controls playsinline></video>
+        <div id="modal-crt-overlay" class="modal-crt-overlay"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

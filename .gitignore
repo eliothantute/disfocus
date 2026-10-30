@@ -1,0 +1,17 @@
+.vercel
+.env*
+node_modules/
+dist/
+.DS_Store
+# Médias lourds et fichiers de travail, hors du dépôt de code
+VIDÉOS/
+Smash*/
+print_carte_visite/
+press_kit_pages/
+disfocus_carte_visite_pack/
+disfocus_carte_visite_pack.zip
+press-kit-disfocus-en.pdf
+public/assets/videos/
+public/print/
+*.py
+test_*.png
